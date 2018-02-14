@@ -13,10 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import taskers.*;
+import static taskers.ThreadState.*;
 
 /**
  * FXML Controller class
@@ -27,6 +29,16 @@ public class NotificationsUIController implements Initializable, Notifiable {
 
     @FXML
     private TextArea textArea;
+    
+    @FXML
+    private Button button1;
+    
+    @FXML
+    private Button button2;
+    
+    @FXML
+    private Button button3;
+
     
     private Task1 task1;
     private Task2 task2;
@@ -63,6 +75,13 @@ public class NotificationsUIController implements Initializable, Notifiable {
             task1 = null;
         }
         textArea.appendText(message + "\n");
+        if (checkState(task1.getThreadState())) {
+            button1.setText("End Thread 1");
+        }
+        else {
+            button1.setText("Start Thread 1");
+        }
+
     }
     
     @FXML
@@ -72,6 +91,12 @@ public class NotificationsUIController implements Initializable, Notifiable {
             task2 = new Task2(2147483647, 1000000);
             task2.setOnNotification((String message) -> {
                 textArea.appendText(message + "\n");
+                if (checkState(task2.getThreadState())) {
+                     button2.setText("End Thread 2");
+                }
+                else {
+                    button2.setText("Start Thread 2");
+                }
             });
             
             task2.start();
@@ -86,9 +111,25 @@ public class NotificationsUIController implements Initializable, Notifiable {
             // this uses a property change listener to get messages
             task3.addPropertyChangeListener((PropertyChangeEvent evt) -> {
                 textArea.appendText((String)evt.getNewValue() + "\n");
+                if (checkState(task3.getThreadState())) {
+                     button3.setText("End Thread 3");
+                }
+                else {
+                    button3.setText("Start Thread 3");
+                }
             });
             
             task3.start();
         }
-    } 
+    }
+    
+    private boolean checkState(ThreadState state) {
+        if(state.equals(STARTED)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+        
+    }
 }

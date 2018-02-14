@@ -22,6 +22,8 @@ public class Task2 extends Thread {
     private int maxValue, notifyEvery;
     boolean exit = false;
     
+    private ThreadState state = ThreadState.STARTED;
+    
     private ArrayList<Notification> notifications = new ArrayList<>();
     
     public Task2(int maxValue, int notifyEvery)  {
@@ -44,6 +46,7 @@ public class Task2 extends Thread {
             }
         }
         doNotify("Task2 done.");
+        state = ThreadState.STOPPED;
     }
     
     public void end() {
@@ -63,4 +66,10 @@ public class Task2 extends Thread {
             });
         }
     }
+    
+    public ThreadState getThreadState()
+    {
+        return state;
+    }
+
 }
