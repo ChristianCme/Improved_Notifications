@@ -67,6 +67,11 @@ public class NotificationsUIController implements Initializable, Notifiable {
             task1.setNotificationTarget(this);
             task1.start();
         }
+        else {
+            task1.end();
+            task1 = null;
+            button1.setText("Start Thread 1");
+        }
     }
     
     @Override
@@ -100,7 +105,12 @@ public class NotificationsUIController implements Initializable, Notifiable {
             });
             
             task2.start();
-        }        
+        }
+        else {
+            task2.end();
+            task2 = null;
+            button1.setText("Start Thread 2");
+        }
     }
     
     @FXML
@@ -120,6 +130,11 @@ public class NotificationsUIController implements Initializable, Notifiable {
             });
             
             task3.start();
+        }
+        else {
+            task3.end();
+            task3 = null;
+            button1.setText("Start Thread 1");
         }
     }
     
