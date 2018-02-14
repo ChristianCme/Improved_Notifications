@@ -22,3 +22,10 @@
 hs_err_pid*
 
 .DS_Store
+
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
